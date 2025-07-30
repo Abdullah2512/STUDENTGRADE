@@ -1,0 +1,71 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Student {
+    String name;
+    double grade;
+
+    Student(String n, double g) {
+        name = n;
+        grade = g;
+    }
+}
+
+public class StudentGradeTracker {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        ArrayList<Student> studentList = new ArrayList<>();
+
+        System.out.println("----- Student Grade Tracker -----");
+        System.out.print("How many students? ");
+        int count = input.nextInt();
+        input.nextLine();
+
+       
+        for (int i = 1; i <= count; i++) {
+            System.out.print("\nEnter name of student " + i + ": ");
+            String studentName = input.nextLine();
+
+            System.out.print("Enter grade of " + studentName + ": ");
+            double studentGrade = input.nextDouble();
+            input.nextLine();
+
+            studentList.add(new Student(studentName, studentGrade));
+        }
+
+    
+        double sum = 0;
+        double highest = -1;
+        double lowest = 101;
+        String topName = "";
+        String lowName = "";
+
+        for (Student s : studentList) {
+            sum += s.grade;
+
+            if (s.grade > highest) {
+                highest = s.grade;
+                topName = s.name;
+            }
+
+            if (s.grade < lowest) {
+                lowest = s.grade;
+                lowName = s.name;
+            }
+        }
+
+        double avg = sum / studentList.size();
+
+       
+        System.out.println("\n--- Students Summary ---");
+        for (Student s : studentList) {
+            System.out.println("Student: " + s.name + " | Grade: " + s.grade);
+        }
+
+        System.out.printf("\nAverage Grade: %.2f\n", avg);
+        System.out.println("Highest Grade: " + highest + " by " + topName);
+        System.out.println("Lowest Grade: " + lowest + " by " + lowName);
+
+        input.close();
+    }
+}
